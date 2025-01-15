@@ -48,7 +48,7 @@ class FormSpider(CrawlSpider):
     def parse_item(self, response):
         self.logger.info('crawling %s', response.url)
 
-        if response.css('form[method="post"]') or response.css('form[method="POST"]'):
+        if (response.css('[data-uk-yooessentials-form]')):
             url_normalized = response.url.rstrip('/')
             message = self.get_cache_message(response)
             self.pages_with_forms.append((url_normalized, message))
