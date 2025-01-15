@@ -83,7 +83,7 @@ class FormSpider(CrawlSpider):
     def closed(self, reason):
         print('The following pages contain YOOEssentials forms:\n')
         for url, message in self.pages_with_forms:
-            print(f'{url} - {message}')
+            print(f'{url}  {message}')
 
         print('\nTree structure of the crawled forms:\n')
         print(self.format_tree(self.tree, prefix='', path=''))
@@ -97,7 +97,7 @@ class FormSpider(CrawlSpider):
             full_url = self.construct_url(current_path).rstrip('/')
 
             if full_url in self.form_messages:
-                line += f' {self.form_messages[full_url]}'
+                line += f'  {self.form_messages[full_url]}'
 
             output.append(line)
 
