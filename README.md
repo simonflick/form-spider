@@ -14,3 +14,9 @@ scrapy crawl form_spider -a url=https://www.example.com/
 ```
 
 On Windows, the Anaconda Shell needs to be used.
+
+## Register globally (Linux only)
+
+1. Move repo to e.g. ~/Applications/form-spider
+2. Add `export PATH="$HOME/Applications/form-spider"` to `~/.bashrc`
+3. Execute using `form-spider.sh https://www.example.com/`
