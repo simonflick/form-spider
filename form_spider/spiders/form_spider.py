@@ -56,17 +56,23 @@ class FormSpider(CrawlSpider):
             self.add_to_tree(url_normalized)
 
     def get_cache_message(self, response):
-        body = response.text
-        cache_comment = re.search(r'<!--(.*WP[- ]Optimize.*)-->', body, re.DOTALL)
-        
-        if cache_comment is None:
-            return bcolors.WARNING + "Cache marker is missing" + bcolors.ENDC
-        else:
-            comment_content = cache_comment.group(1)
-            if "not served from cache" in comment_content:
-                return bcolors.OKGREEN + "Form is excluded from cache" + bcolors.ENDC
+        cache_comment = re.search(r'<!--(.*WP[- ]Optimize.*)-->', response.text, re.DOTALL)
+
+        if cache_comment is not None:
+            if "not served from cache" in cache_comment.group(1):
+                return bcolors.OKGREEN + "Excluded from cache [WP Optimize]" + bcolors.ENDC
             else:
-                return bcolors.FAIL + "Form is cached!" + bcolors.ENDC
+                return bcolors.FAIL + "Cached! [WP Optimize]" + bcolors.ENDC
+
+        cache_comment = re.search(r'<!--(.*W3 Total Cache.*)-->', response.text, re.DOTALL)
+
+        if cache_comment is not None:
+            if "Requested URI is rejected" in cache_comment.group(1):
+                return bcolors.OKGREEN + "Excluded from cache [W3 Total Cache]" + bcolors.ENDC
+            else:
+                return bcolors.FAIL + "Cached! [W3 Total Cache]" + bcolors.ENDC
+
+        return bcolors.WARNING + "No cache marker found" + bcolors.ENDC
 
     def add_to_tree(self, url):
         parts = url.replace('https://', '').replace('http://', '').rstrip('/').split('/')
