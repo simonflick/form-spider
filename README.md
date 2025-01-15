@@ -1,6 +1,10 @@
 # Form Spider
 
-All pages with forms need to be excluded from page caching. This spider crawls a website and returns all pages that contain a form with `method="POST"`.
+If a page contains forms with user specific tokens, it needs to be excluded from page caching. This spider crawls a website for such forms.
+
+## Limitations
+
+Only detects YOOEssentials Forms and page caching using W3 Total Cache or WP Optimize.
 
 ## Dependencies
 
