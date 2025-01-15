@@ -81,11 +81,11 @@ class FormSpider(CrawlSpider):
             d = d[part]
 
     def closed(self, reason):
-        print('The following pages contain forms with POST method:\n')
+        print('The following pages contain YOOEssentials forms:\n')
         for url, message in self.pages_with_forms:
             print(f'{url} - {message}')
 
-        print('\nTree structure of the crawled URLs:\n')
+        print('\nTree structure of the crawled forms:\n')
         print(self.format_tree(self.tree, prefix='', path=''))
 
     def format_tree(self, d, prefix, path):
