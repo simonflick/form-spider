@@ -39,7 +39,10 @@ class FormSpiderSitemap(SitemapSpider):
             self.tree.add(url_normalized)
 
     def closed(self, reason):
-        print('The following pages contain YOOEssentials forms:\n')
+        if len(self.pages_with_forms) > 0:
+            print('The following pages contain YOOEssentials forms:\n')
+        else:
+            print('No forms were found.\n')
         
         match self.output_display:
             case 'combined':
